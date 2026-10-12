@@ -27,5 +27,14 @@ public class ModuleRestAPI {
         }
         else{
             return Response.status(400).entity("Module could not be created!").build();
+        }
     }
-}}
+    @Path("/{matricule}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public  Response getModuleByMatricule(@PathParam("matricule") String matricule )
+    {
+        return Response.status(200).entity(helper.getModuleByMatricule(matricule)).build();
+    }
+
+}
