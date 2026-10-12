@@ -46,6 +46,14 @@ public class ModuleRestAPI {
             return Response.status(400).entity("Module could not be deleted!").build();
     }
     }
+    @Path("/")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response GetModuleByType(@QueryParam("type") Module.TypeModule type)
+    {
+        return Response.status(200).entity(helper.getModulesByType(type)).build();
+    }
+
 
 
 }
