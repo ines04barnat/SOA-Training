@@ -1,11 +1,15 @@
 package webservices;
 
 import entities.Module;
+import entities.UniteEnseignement;
 import metiers.ModuleBusiness;
+
+import metiers.UniteEnseignementBusiness;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.UUID;
 
 @Path("/module")
 public class ModuleRestAPI {
@@ -46,13 +50,32 @@ public class ModuleRestAPI {
             return Response.status(400).entity("Module could not be deleted!").build();
     }
     }
-    @Path("/")
+    @Path("")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response GetModuleByType(@QueryParam("type") Module.TypeModule type)
     {
         return Response.status(200).entity(helper.getModulesByType(type)).build();
     }
+    @Path("/{code}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response GetModulesByUE(@QueryParam("code") UniteEnseignement ue)
+    {
+        return Response.status(200).entity(helper.getModulesByUE(helper.getUE(code))).build();
+    }
+    @Path("/update/{mat}")
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    public  Response UpdateMB(@PathParam("mat") String mat, Module md){
+        if(helper.updateModule(mat, md)){
+            return Response.status(200).entity("updated").build();
+        }
+        else
+            return Response.status(400).entity("not found").build();
+    }
+
+
 
 
 
