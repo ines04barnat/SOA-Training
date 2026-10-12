@@ -1,10 +1,9 @@
 package webservices;
 
+import entities.Module;
 import metiers.ModuleBusiness;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -17,4 +16,16 @@ public class ModuleRestAPI {
     public Response getListModule()
     {
         return Response.status(200).entity(helper.getAllModules()).build();  }
-}
+    @Path("/new")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response createModule(Module module)
+    {
+        if (helper.addModule(module)){
+            return Response.status(200).entity("Module successfully created!").build();
+        }
+        else{
+            return Response.status(400).entity("Module could not be created!").build();
+    }
+}}
