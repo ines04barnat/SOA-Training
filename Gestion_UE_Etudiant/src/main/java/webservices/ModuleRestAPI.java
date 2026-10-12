@@ -36,5 +36,16 @@ public class ModuleRestAPI {
     {
         return Response.status(200).entity(helper.getModuleByMatricule(matricule)).build();
     }
+    @Path("/delete/{matricule}")
+    @DELETE
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response DeleteModuleByMatricule(@PathParam("matricule") String matricule )
+    {   if (helper.deleteModule(matricule)){
+            return Response.status(200).entity("Module successfully deleted!").build();}
+        else{
+            return Response.status(400).entity("Module could not be deleted!").build();
+    }
+    }
+
 
 }
